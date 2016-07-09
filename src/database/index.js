@@ -7,7 +7,6 @@ export async function initTestModel() {
 }
 
 export async function initModel() {
-  await models.sequelize.sync()
+  await models.sequelize.sync({force: true})
   return models;
 }
-
