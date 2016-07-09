@@ -1,22 +1,38 @@
+/*global describe*/
+/*global beforeEach*/
+/*global afterEach*/
+/*global it*/
+/*global request*/
+/*global server*/
+import startServer from '../../src/index';
 
-import HelloWorld from '../../src';
 
+describe('node server test', () => {
 
-describe('TDD hello world', () => {
-
-  let helloWorld = null;
-  beforeEach(() => {
-    helloWorld = new HelloWorld();
-  });
-
-  it('say hello', async (done) => {
+  let app = null;
+  beforeEach(async (done) => {
     try {
-      const result = await helloWorld.greet();
-      result.should.be.eq('hello')
-      done();
+      app = await startServer();
+      done()
     } catch (e) {
-      done(e);
+      done(e)
     }
   });
+
+  it('check server', async (done) => {
+    try {
+      let result = await request(app).get('/test').expect(200)
+      result.text.should.be.eq('hello world')
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+
+  afterEach(async (done) => {
+    server.close(() => {
+      done();
+    });
+  })
 
 });
