@@ -70,6 +70,19 @@ describe('user router test', () => {
     }
   });
   
+  it('check islogin no', async (done) => {
+    try {
+      let result = await request(app)
+        .get('/islogin')
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.be.false;
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
   it('login with correct password', async (done) => {
     try {
       let result = await request(app)
@@ -79,7 +92,6 @@ describe('user router test', () => {
           password: 'pwd'
         })
         .expect(200);
-      global.t = result.text;
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.eq('success');
       done()
@@ -87,6 +99,19 @@ describe('user router test', () => {
       done(e)
     }
   });
+  
+  // it('check islogin yes', async (done) => {
+  //   try {
+  //     let result = await request(app)
+  //       .get('/islogin')
+  //       .expect(200);
+  //     JSON.parse(result.text).status.should.be.true;
+  //     JSON.parse(result.text).data.should.be.true;
+  //     done()
+  //   } catch (e) {
+  //     done(e)
+  //   }
+  // });
   
   it('login with wrong password', async (done) => {
     try {
@@ -97,7 +122,6 @@ describe('user router test', () => {
           password: 'wpwd'
         })
         .expect(417);
-      global.t = result.text;
       JSON.parse(result.text).status.should.be.false;
       JSON.parse(result.text).data.should.eq('info error');
       done()
@@ -115,7 +139,6 @@ describe('user router test', () => {
           password: 'pwd'
         })
         .expect(417);
-      global.t = result.text;
       JSON.parse(result.text).status.should.be.false;
       JSON.parse(result.text).data.should.eq('info error');
       done()

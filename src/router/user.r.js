@@ -30,9 +30,18 @@ router.get('/user',async (req, res, next) => {
 router.post('/login',async (req, res, next) => {
   let user = await db.User.findOne({ where: {username: req.body.username} });
   if(user && user.password === req.body.password){
+    req.session.user = user.username;
+    req.session.uid = user.id;
     responseHandler(res,true,'success');
   }else
     responseHandler(res,false,'info error');
+});
+
+router.get('/islogin',async (req, res, next) => {
+  if(req.session.uid){
+    responseHandler(res,true,true);
+  }else
+    responseHandler(res,true,false);
 });
 
 export default router;

@@ -2,6 +2,7 @@ import express from 'express';
 import {initModel} from './database';
 import bodyParser from 'body-parser';
 import routerSetup from './router';
+import session from 'express-session';
 
 let app = express();
 
@@ -16,6 +17,11 @@ export default async function start_server() {
         extended: false
     }));
     app.use(express.static('./static'));
+    app.use(session({
+      secret: 'one ok rock',
+      saveUninitialized: true,
+      resave: true
+    }));
     app.get('/test', function(req, res, next) {
     
         res.end('hello world');
