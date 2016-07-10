@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
+        User.hasMany(models.Post);
       }
     }
   });
