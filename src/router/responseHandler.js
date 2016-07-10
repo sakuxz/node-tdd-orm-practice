@@ -11,3 +11,13 @@ export default function(res, status, mes){
     })
   }
 }
+
+export function checkAuth(req,res,next){
+  if(!req.session.uid){
+    res.status(417).json({
+      status: false,
+      data: 'no auth'
+    })
+    next();
+  }
+}
