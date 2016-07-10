@@ -12,10 +12,12 @@ import startServer from '../../../src/index';
 describe('post router test', () => {
 
   let app = null;
+  let agent = null;
   before(async (done) => {
     try {
       app = await startServer();
-      let result = await request(app)
+      agent = request.agent(app);
+      await agent
         .post('/user')
         .send({
           username: 'Ken',
@@ -23,7 +25,7 @@ describe('post router test', () => {
           email: 'ken@g.com'
         })
         .expect(200);
-      result = await request(app)
+      await agent
         .post('/login')
         .send({
           username: 'Ken',
@@ -38,7 +40,7 @@ describe('post router test', () => {
 
   it('create new post', async (done) => {
     try {
-      let result = await request(app)
+      let result = await agent
         .post('/post')
         .send({
           content: '123'
@@ -54,7 +56,7 @@ describe('post router test', () => {
   
   it('create new post without content', async (done) => {
     try {
-      let result = await request(app)
+      let result = await agent
         .post('/post')
         .send({
         })
@@ -69,11 +71,11 @@ describe('post router test', () => {
   
   it('create new post without login', async (done) => {
     try {
-      await request(app)
+      await agent
         .post('/logout')
         .expect(200);
       
-      let result = await request(app)
+      let result = await agent
         .post('/post')
         .send({
           content: '123'

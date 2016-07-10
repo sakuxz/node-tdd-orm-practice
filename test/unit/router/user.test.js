@@ -12,6 +12,7 @@ import startServer from '../../../src/index';
 describe('user router test', () => {
 
   let app = null;
+  let agent = null;
   before(async (done) => {
     try {
       app = await startServer();
@@ -85,7 +86,8 @@ describe('user router test', () => {
   
   it('login with correct password', async (done) => {
     try {
-      let result = await request(app)
+      agent = request.agent(app);
+      let result = await agent
         .post('/login')
         .send({
           username: 'Ken',
@@ -100,18 +102,18 @@ describe('user router test', () => {
     }
   });
   
-  // it('check islogin yes', async (done) => {
-  //   try {
-  //     let result = await request(app)
-  //       .get('/islogin')
-  //       .expect(200);
-  //     JSON.parse(result.text).status.should.be.true;
-  //     JSON.parse(result.text).data.should.be.true;
-  //     done()
-  //   } catch (e) {
-  //     done(e)
-  //   }
-  // });
+  it('check islogin yes', async (done) => {
+    try {
+      let result = await agent
+        .get('/islogin')
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.be.true;
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
   
   it('test logout', async (done) => {
     try {
