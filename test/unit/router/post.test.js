@@ -88,8 +88,24 @@ describe('post router test', () => {
       done(e)
     }
   });
+  
+  it('get all post', async (done) => {
+    try {
+      let result = await agent
+        .get('/post')
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      // JSON.parse(result.text).data.should.be.a.Array;
+      // global.t = result.text;
+      // JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'UserId', 'username', 'createdAt', 'updatedAt');
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
 
   after(async (done) => {
+    // console.log(t);
     server.close(() => {
       done();
     });

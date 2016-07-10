@@ -21,4 +21,21 @@ router.post('/post',async (req, res, next) => {
   }
 });
 
+router.get('/post',async (req, res, next) => {
+  try{
+    let mes = await db.Post.findAll({
+      include: [ db.User ]
+    });
+    mes.forEach(function (e, i) {
+      let username = e.User.username;
+      e.User = undefined;
+      e.username = username;
+    });
+    responseHandler(res, true, mes);
+  }catch (e){
+    responseHandler(res,false,'database err');
+  }
+});
+
+
 export default router;
