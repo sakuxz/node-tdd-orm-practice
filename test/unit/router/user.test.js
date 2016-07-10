@@ -113,6 +113,19 @@ describe('user router test', () => {
   //   }
   // });
   
+  it('test logout', async (done) => {
+    try {
+      let result = await request(app)
+        .post('/logout')
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.eq('success');
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
   it('login with wrong password', async (done) => {
     try {
       let result = await request(app)

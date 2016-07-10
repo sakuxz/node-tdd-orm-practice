@@ -44,4 +44,10 @@ router.get('/islogin',async (req, res, next) => {
     responseHandler(res,true,false);
 });
 
+router.post('/logout',async (req, res, next) => {
+  req.session.user = undefined;
+  req.session.uid = undefined;
+  responseHandler(res,true,'success');
+});
+
 export default router;
