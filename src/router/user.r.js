@@ -32,7 +32,7 @@ router.post('/login',async (req, res, next) => {
   if(user && user.password === req.body.password){
     req.session.user = user.username;
     req.session.uid = user.id;
-    responseHandler(res,true,'success');
+    responseHandler(res,true,user.username);
   }else
     responseHandler(res,false,'info error');
 });

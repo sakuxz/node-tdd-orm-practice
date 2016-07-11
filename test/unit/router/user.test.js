@@ -95,7 +95,7 @@ describe('user router test', () => {
         })
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
-      JSON.parse(result.text).data.should.be.eq('success');
+      JSON.parse(result.text).data.should.be.eq('Ken');
       done()
     } catch (e) {
       done(e)
@@ -108,7 +108,7 @@ describe('user router test', () => {
         .get('/islogin')
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
-      JSON.parse(result.text).data.should.be.true;
+      JSON.parse(result.text).data.should.be.eq('Ken');
       done()
     } catch (e) {
       done(e)
