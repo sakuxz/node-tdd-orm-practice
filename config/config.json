@@ -13,10 +13,10 @@
     "dialect": "sqlite"
   },
   "production": {
-    "username": "sakuxz",
-    "password": "",
-    "database": "c9",
-    "host": "0.0.0.0",
+    "username": "root",
+    "password": "root",
+    "database": "database_production",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }

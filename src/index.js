@@ -3,6 +3,7 @@ import {initModel} from './database';
 import bodyParser from 'body-parser';
 import routerSetup from './router';
 import session from 'express-session';
+import path from 'path';
 
 let app = express();
 
@@ -27,7 +28,7 @@ export default async function start_server() {
     app.use(bodyParser.urlencoded({
         extended: false
     }));
-    app.use(express.static('./static'));
+    app.use(express.static(path.join(__dirname, '..', 'static')));
     app.use(session({
       secret: 'one ok rock',
       saveUninitialized: true,

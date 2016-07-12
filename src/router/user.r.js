@@ -7,8 +7,8 @@ let router = express.Router();
 router.post('/user',async (req, res, next) => {
   let body = req.body;
   let newUser = {
-    username: body.username, 
-    password: body.password, 
+    username: body.username,
+    password: body.password,
     email: body.email
   }
   try{
@@ -39,7 +39,7 @@ router.post('/login',async (req, res, next) => {
 
 router.get('/islogin',async (req, res, next) => {
   if(req.session.uid){
-    responseHandler(res,true,true);
+    responseHandler(res,true,req.session.user);
   }else
     responseHandler(res,true,false);
 });
