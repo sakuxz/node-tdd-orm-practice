@@ -5,7 +5,7 @@ var Post = React.createClass({
     var icon_background_index = this.props.data.User.username[0].charCodeAt()%24;
     var icon_background = colors[icon_background_index];
     return (
-      <div className="post">
+      <div className="post" style={{animationDelay:this.props.index*0.1+"s"}}>
         <div className="p-icon" style={{background:icon_background}}>{this.props.data.User.username[0].toLocaleUpperCase()}</div>
         <div className="p-content">
           <h3>{this.props.data.User.username}</h3>
@@ -56,7 +56,7 @@ var IndexPage = React.createClass({
         <div className="post-wrapper">
           {
             this.state.posts.map(function(e, i) {
-              return <Post data={e} key={i} />;
+              return <Post data={e} key={i} index={i} />;
             })
           }
         </div>

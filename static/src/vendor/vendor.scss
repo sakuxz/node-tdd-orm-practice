@@ -1,5 +1,6 @@
 //$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "./ani.scss";
 body {
   background: rgba(232, 232, 232, 0.22);
   font-family: "微軟正黑體";
@@ -113,6 +114,10 @@ body {
     .post {
       padding: 5px;
       overflow: hidden;
+      animation: post-in 0.6s both;
+      animation-timing-function: ease-in-out;
+      transform: translateY(2em);
+      opacity: 0;
       &:hover {
         .p-icon {
           transform: scale(1.07) rotateY(15deg) rotateX(7deg) translateY(2px);
@@ -125,6 +130,9 @@ body {
         }
       }
       .p-icon {
+        //animation: post-icon-in 0.6s both;
+        //transform: scale(0.5);
+        //opacity: 0;
         transition: 0.3s all;
         transition-timing-function: ease-in-out;
         float: left;
@@ -141,6 +149,9 @@ body {
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
       }
       .p-content {
+        //animation: post-content-in 0.6s both;
+        //transform: translateX(-2em);
+        //opacity: 0;
         transition: 0.3s all;
         transition-timing-function: ease-in-out;
         margin-left: 90px;
