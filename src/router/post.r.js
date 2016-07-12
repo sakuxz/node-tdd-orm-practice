@@ -7,7 +7,7 @@ let router = express.Router();
 
 router.post('/post',async (req, res, next) => {
   checkAuth(req,res,next)
-  
+
   let body = req.body;
   let newPost = {
     content: body.content,
@@ -24,7 +24,8 @@ router.post('/post',async (req, res, next) => {
 router.get('/post',async (req, res, next) => {
   try{
     let mes = await db.Post.findAll({
-      include: [ db.User ]
+      include: [ db.User ],
+      order: [['createdAt', 'DESC']]
     });
     mes.forEach(function (e, i) {
       let username = e.User.username;

@@ -63,8 +63,10 @@ var IndexPage = React.createClass({
       </div>
     );
   },
-  componmentDidMount: function() {
+  componentDidMount: function() {
+    console.log('in');
     $('body').on('new_mes',function() {
+      console.log('fsdfsdfsd');
       getPost().then(function (data) {
         this.setState({
           posts: data.data
@@ -72,7 +74,7 @@ var IndexPage = React.createClass({
       }.bind(this), function () {
         alert('network error');
       });
-    });
+    }.bind(this));
   }
 });
 
