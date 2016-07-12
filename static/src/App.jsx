@@ -102,7 +102,7 @@ var App = React.createClass({
   },
   logout: function() {
     $.ajax({
-      url: 'https://node-tdd-orm-practice-sakuxz.c9users.io/logout',
+      url: '/logout',
       type: 'POST'
     })
     .done(function() {
