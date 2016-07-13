@@ -43,14 +43,38 @@ describe('post model test', () => {
     }
   });
   
-  // it('create duplicate username should be fail', async (done) => {
-  //   try {
-  //     let addUser = {username: 'test', password: 'test', email: 'test@mail.com'}
-  //     let result = await models.User.create(addUser);
-  //     done()
-  //   } catch (e) {
-  //     e.name.should.be.eq('SequelizeUniqueConstraintError');
-  //     done()
-  //   }
-  // });
+  it('delete post test', async (done) => {
+    try {
+      let addPost = {content: '123',UserId: userId}
+      await models.Post.create(addPost);
+      
+      let where = {content: '123',UserId: userId}
+      let result = await models.Post.destroy({
+        where: where
+      });
+      result.should.be.eq(1);
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
+  it('update post test', async (done) => {
+    try {
+      let addPost = {content: '123',UserId: userId}
+      let result = await models.Post.create(addPost);
+      
+      let change = {content: '123456'}
+      result = await models.Post.update(change,{
+        where: {
+          id: result.toJSON().id
+        }
+      });
+      result.should.be.array;
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
 });

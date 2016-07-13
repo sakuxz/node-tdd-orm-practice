@@ -2,13 +2,13 @@ var colors = ["rgb(187, 243, 247)", "rgb(218, 189, 252)", "rgb(148, 132, 255)", 
 
 var Post = React.createClass({
   render: function() {
-    var icon_background_index = this.props.data.User.username[0].charCodeAt()%24;
+    var icon_background_index = this.props.data.username[0].charCodeAt()%24;
     var icon_background = colors[icon_background_index];
     return (
       <div className="post" style={{animationDelay:this.props.index*0.1+"s"}}>
-        <div className="p-icon" style={{background:icon_background}}>{this.props.data.User.username[0].toLocaleUpperCase()}</div>
+        <div className="p-icon" style={{background:icon_background}}>{this.props.data.username[0].toLocaleUpperCase()}</div>
         <div className="p-content">
-          <h3>{this.props.data.User.username}</h3>
+          <h3>{this.props.data.username}</h3>
           {
             this.props.data.content.split('\n').map(function(e, i) {
               return <p key={i}>{e}</p>;
@@ -64,9 +64,7 @@ var IndexPage = React.createClass({
     );
   },
   componentDidMount: function() {
-    console.log('in');
     $('body').on('new_mes',function() {
-      console.log('fsdfsdfsd');
       getPost().then(function (data) {
         this.setState({
           posts: data.data
