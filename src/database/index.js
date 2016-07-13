@@ -7,6 +7,9 @@ export async function initTestModel() {
 }
 
 export async function initModel() {
-  await models.sequelize.sync({force: true})
+  if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production')
+    await models.sequelize.sync();
+  else
+    await models.sequelize.sync({force: true});
   return models;
 }
