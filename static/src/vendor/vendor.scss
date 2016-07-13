@@ -4,6 +4,7 @@
 body {
   background: rgba(232, 232, 232, 0.22);
   //font-family: "微軟正黑體";
+  font-family: 'Handlee', '微軟正黑體', cursive;
 }
 .ui.menu {
   border: none;
@@ -161,6 +162,21 @@ body {
         padding: 1.3em 2em 1.6em;
         box-shadow: 0 0 4px 1px #eceaea;
         margin-bottom: 3.8em;
+        position: relative;
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 1.35em;
+          left: -8px;
+          width: 15px;
+          height: 15px;
+          transform: rotate(45deg);
+          background: inherit;
+          border-radius: 0 0 0 6px;
+          border-bottom: 1px solid #eaeaea;
+          border-left: 1px solid #efefef;
+        }
         p {
           margin-bottom: 0;
           line-height: 1.6em;
