@@ -35,8 +35,8 @@ var IndexPage = React.createClass({
         <div className="post-wrapper">
           {
             this.state.posts.map(function(e, i) {
-              return <Post data={e} key={i} index={i} />;
-            })
+              return <Post data={e} key={i} index={i} updatePostData={this.updatePostData} />;
+            }.bind(this))
           }
         </div>
       </div>
@@ -52,6 +52,15 @@ var IndexPage = React.createClass({
         alert('network error');
       });
     }.bind(this));
+  },
+  updatePostData: function() {
+    getPost().then(function (data) {
+      this.setState({
+        posts: data.data
+      });
+    }.bind(this), function () {
+      alert('network error');
+    });
   }
 });
 

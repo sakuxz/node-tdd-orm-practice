@@ -114,7 +114,7 @@ body {
     }
     .post {
       padding: 5px;
-      overflow: hidden;
+      //overflow: hidden;
       animation: post-in 0.6s both;
       animation-timing-function: ease-in-out;
       transform: translateY(2em);
@@ -128,6 +128,25 @@ body {
           background: white;
           box-shadow: 0 3px 4px 1px #eceaea;
           transform: scale(1.02);
+          .ctrl-group {
+            .button {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+        }
+      }
+      &.edit-mode {
+        .p-content {
+          p {
+            display: none;
+          }
+          .edit-content {
+            display: block;
+          }
+          .submit.button{
+            display: block;
+          }
         }
       }
       .p-icon {
@@ -190,6 +209,37 @@ body {
           color: #c0cccc;
           margin-top: 2em;
           float: right;
+        }
+        .edit-content {
+          display: none;
+          width: 100%;
+          min-height: 6em;
+          outline: none !important;
+          border: 2px dashed #4dceff;
+          padding: 6px 11px;
+        }
+        .button.submit {
+          display: none;
+          margin-top: 0.6em;
+        }
+        .ctrl-group {
+          position: absolute;
+          top: -1em;
+          right: 1.5em;
+          .button {
+            opacity: 0;
+            transition: 0.3s all;
+            transform: scale(0.5);
+            transition-timing-function: ease-in-out;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            margin-left: 0.3em;
+            &.blue {
+              background-color: #40adff;
+            }
+            &.red {
+              background-color: #ff6161;
+            }
+          }
         }
       }
     }
