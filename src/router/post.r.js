@@ -68,7 +68,9 @@ router.patch('/post',async (req, res, next) => {
   
   try{
     let posts = await db.Post.findAll({
-      where: req.body
+      where: {
+        id: req.body.id
+      }
     });
     let check = true;
     posts.forEach(function(e, i) {
@@ -79,8 +81,10 @@ router.patch('/post',async (req, res, next) => {
       responseHandler(res,false,'no auth');
       next();
     }
-    let mes = await db.Post.update({
-      where: req.body
+    let mes = await db.Post.update(req.body,{
+      where: {
+        id: req.body.id
+      }
     });
     responseHandler(res, true, mes);
   }catch (e){

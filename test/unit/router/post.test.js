@@ -13,6 +13,7 @@ describe('post router test', () => {
 
   let app = null;
   let agent = null;
+  let postId = null;
   before(async (done) => {
     try {
       app = await startServer();
@@ -48,6 +49,7 @@ describe('post router test', () => {
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.has.keys('id', 'content', 'UserId', 'createdAt', 'updatedAt');
+      postId = JSON.parse(result.text).data.id;
       done()
     } catch (e) {
       done(e)
@@ -96,8 +98,57 @@ describe('post router test', () => {
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.be.a.Array;
-      global.t = result.text;
       JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'UserId', 'username', 'createdAt', 'updatedAt');
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
+  it('update post', async (done) => {
+    try {
+      await agent
+        .post('/login')
+        .send({
+          username: 'Ken',
+          password: 'pwd'
+        })
+        .expect(200);
+      
+      let result = await agent
+        .patch('/post')
+        .send({
+          id: postId,
+          content: '123456'
+        })
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.be.a.Array;
+      JSON.parse(result.text).data[0].should.be.eq(1);
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
+  it('delete post', async (done) => {
+    try {
+      await agent
+        .post('/login')
+        .send({
+          username: 'Ken',
+          password: 'pwd'
+        })
+        .expect(200);
+      
+      let result = await agent
+        .delete('/post')
+        .send({
+          id: postId
+        })
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.be.eq(1);
       done()
     } catch (e) {
       done(e)
@@ -105,7 +156,6 @@ describe('post router test', () => {
   });
 
   after(async (done) => {
-    // console.log(t);
     server.close(() => {
       done();
     });
