@@ -98,7 +98,7 @@ describe('post router test', () => {
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.be.a.Array;
-      JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'isYour', 'UserId', 'username', 'createdAt', 'updatedAt');
+      JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'Likes', 'isLike', 'likeNum', 'isYour', 'UserId', 'username', 'createdAt', 'updatedAt');
       done()
     } catch (e) {
       done(e)

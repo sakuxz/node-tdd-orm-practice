@@ -24,7 +24,7 @@ router.post('/post',async (req, res, next) => {
 router.get('/post',async (req, res, next) => {
   try{
     let mes = await db.Post.findAll({
-      include: [ db.User ],
+      include: [ db.User,db.Like ],
       order: [['createdAt', 'DESC']]
     });
     mes.forEach(function (e, i) {
@@ -36,6 +36,12 @@ router.get('/post',async (req, res, next) => {
       }
       e.dataValues.User = undefined;
       e.dataValues.username = username;
+      e.dataValues.likeNum = e.dataValues.Likes.length;
+      e.dataValues.isLike = false;
+      e.dataValues.Likes.forEach(function(e2, i) {
+        if(e2.UserId === req.session.uid)
+          e.dataValues.isLike = true;
+      });
     });
     responseHandler(res, true, mes);
   }catch (e){
