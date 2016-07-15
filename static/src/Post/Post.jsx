@@ -14,7 +14,14 @@ var Post = React.createClass({
       <div className={(this.state.editMode)?"post edit-mode":"post"} style={{animationDelay:this.props.index*0.1+"s"}}>
         <div className="p-icon" style={{background:icon_background}}>{this.props.data.username[0].toLocaleUpperCase()}</div>
         <div className="p-content">
-          <h3>{this.props.data.username}</h3>
+          <h3>{this.props.data.username}
+            <i onClick={this.doLike} className={(this.props.data.isLike)?"heart icon like-btn":"empty heart icon like-btn"}></i>
+            {
+              (this.props.data.likeNum !== 0)?
+                <span className="like-num">{this.props.data.likeNum}</span>:
+                null
+            }
+          </h3>
           {
             this.props.data.content.split('\n').map(function(e, i) {
               return <p key={i}>{e}</p>;
@@ -22,7 +29,7 @@ var Post = React.createClass({
           }
           <textarea ref="edit" className="edit-content" name="content" defaultValue={this.props.data.content} />
           <button className="submit ui blue basic button" onClick={this.editPost} >update post</button>
-          <div className="ctrl-group">
+          <div className="ctrl-group" style={{display:(this.props.data.isYour)?"block":"none"}}>
             <button className="ui circular blue icon button" onClick={this.toggleEditPost}>
               <i className="edit icon"></i>
             </button>
@@ -57,21 +64,41 @@ var Post = React.createClass({
       this.refs.edit.value = this.props.data.content;
     });
   },
+  isSend: false,
   editPost: function() {
+    if(this.isSend) return;
+    this.isSend = true;
     var data = {
       id: this.props.data.id,
       content: this.refs.edit.value
     }
     updatePost(data).then(function() {
+      this.isSend = false;
       this.toggleEditPost();
       this.props.updatePostData();
     }.bind(this), function (e) {
+      this.isSend = false;
       e = JSON.parse(e.responseText);
       if(e.data === 'no auth')
         alert('this is not your post');
       else
         alert('network error');
-    });
+    }.bind(this));
+  },
+  doLike: function() {
+    if(this.props.data.isLike){
+      unlikePost(this.props.data.id).then(function () {
+        this.props.updatePostData();
+      }.bind(this), function () {
+        alert('network error');
+      });
+    }else{
+      likePost(this.props.data.id).then(function () {
+        this.props.updatePostData();
+      }.bind(this), function () {
+        alert('network error');
+      });
+    }
   }
 });
 
@@ -99,6 +126,39 @@ function updatePost(data) {
       url: '/post',
       type: 'PATCH',
       data: data
+    })
+    .done(function(mes) {
+      resolve(mes)
+    })
+    .fail(function(mes) {
+      reject(mes)
+    })
+  });
+}
+
+function likePost(id) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: '/like',
+      type: 'POST',
+      data: {
+        postId: id
+      }
+    })
+    .done(function(mes) {
+      resolve(mes)
+    })
+    .fail(function(mes) {
+      reject(mes)
+    })
+  });
+}
+
+function unlikePost(id) {
+  return new Promise(function(resolve, reject) {
+    $.ajax({
+      url: '/like/'+id,
+      type: 'DELETE'
     })
     .done(function(mes) {
       resolve(mes)

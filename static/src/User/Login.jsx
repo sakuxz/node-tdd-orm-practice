@@ -39,6 +39,7 @@ var Login = React.createClass({
         this.refs.form.reset();
         this.props.setUser(e.data);
         // alert('success');
+        $('body').trigger('new_mes');
         this.props.toggleLogin();
       }.bind(this), function (e) {
         this.isSend = false;

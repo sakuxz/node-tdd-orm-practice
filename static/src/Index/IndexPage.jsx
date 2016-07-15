@@ -14,17 +14,26 @@ var IndexPage = React.createClass({
         // {
         //   username: 'ken',
         //   content: "hfg sdfsdfsdf hfg hfgh\ngdfgfdgfdg\ngfdgdfg",
-        //   createdAt: 1321323133
+        //   createdAt: 1321323133,
+        //   likeNum: 5,
+        //   isYour: false,
+        //   isLike: true
         // },
         // {
-        //   username: 'ken',
+        //   username: 'mary',
         //   content: "hfghfghfgh\ngdfgfdgfdg\ngfdgdfg",
-        //   createdAt: 1321323133
+        //   createdAt: 1321323133,
+        //   likeNum: 2,
+        //   isYour: true,
+        //   isLike: false
         // },
         // {
-        //   username: 'ken',
+        //   username: 'david',
         //   content: "hfghfghfgh\ngdfgfdgfdg\ngfdgdfg",
-        //   createdAt: 1321323133
+        //   createdAt: 1321323133,
+        //   likeNum: 5,
+        //   isYour: false,
+        //   isLike: true
         // }
       ]
     };

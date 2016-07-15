@@ -144,7 +144,7 @@ body {
           .edit-content {
             display: block;
           }
-          .submit.button{
+          .submit.button {
             display: block;
           }
         }
@@ -196,11 +196,33 @@ body {
           border-bottom: 1px solid #eaeaea;
           border-left: 1px solid #efefef;
         }
+        i.like-btn {
+          color: #adadad;
+          float: right;
+          font-size: 1em;
+          margin-right: 0.3em;
+          animation: unlike-scale-in 0.35s;
+          cursor: pointer;
+          &:not(.empty) {
+            color: #09ef97;
+            animation: like-scale-in 0.35s;
+            animation-timing-function: ease-in-out;
+          }
+        }
+        span.like-num {
+          font-size: 0.8em;
+          font-weight: 100;
+          font-family: handlee;
+          float: right;
+          margin: 0 8px 0 0;
+          color: #b5b5b5;
+        }
         p {
           margin-bottom: 0;
-          line-height: 1.6em;
+          //line-height: 1.6em;
           word-spacing: 3px;
           font-size: 1.1em;
+          padding: 2px 0;
         }
         h3 {
           margin-bottom: 7px;
@@ -224,7 +246,7 @@ body {
         }
         .ctrl-group {
           position: absolute;
-          top: -1em;
+          top: -1.6em;
           right: 1.5em;
           .button {
             opacity: 0;
