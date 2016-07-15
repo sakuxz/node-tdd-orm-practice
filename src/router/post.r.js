@@ -52,7 +52,7 @@ router.delete('/post',async (req, res, next) => {
     });
     if(!check){
       responseHandler(res,false,'no auth');
-      next();
+      return;
     }
     let mes = await db.Post.destroy({
       where: req.body
@@ -79,7 +79,7 @@ router.patch('/post',async (req, res, next) => {
     });
     if(!check){
       responseHandler(res,false,'no auth');
-      next();
+      return;
     }
     let mes = await db.Post.update(req.body,{
       where: {
