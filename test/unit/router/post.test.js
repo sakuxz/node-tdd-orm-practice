@@ -98,7 +98,24 @@ describe('post router test', () => {
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.be.a.Array;
-      JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'UserId', 'username', 'createdAt', 'updatedAt');
+      JSON.parse(result.text).data[0].should.has.keys('id', 'content', 'isYour', 'UserId', 'username', 'createdAt', 'updatedAt');
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
+  it('update post without login', async (done) => {
+    try {
+      let result = await agent
+        .patch('/post')
+        .send({
+          id: postId,
+          content: '123456'
+        })
+        .expect(417);
+      JSON.parse(result.text).status.should.be.false;
+      JSON.parse(result.text).data.should.be.eq('no auth');
       done()
     } catch (e) {
       done(e)

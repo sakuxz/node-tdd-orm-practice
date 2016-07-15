@@ -29,6 +29,11 @@ router.get('/post',async (req, res, next) => {
     });
     mes.forEach(function (e, i) {
       let username = e.dataValues.User.username;
+      if(e.dataValues.User.id === req.session.uid){
+        e.dataValues.isYour = true;
+      }else{
+        e.dataValues.isYour = false;
+      }
       e.dataValues.User = undefined;
       e.dataValues.username = username;
     });
