@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   let Post = sequelize.define('Post', {
-    content: {type: DataTypes.TEXT, unique: true, allowNull: false}
+    content: {type: DataTypes.TEXT, allowNull: false}
   }, {
     classMethods: {
       associate: (models) => {

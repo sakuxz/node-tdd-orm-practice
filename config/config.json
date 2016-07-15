@@ -14,9 +14,9 @@
     "dialect": "sqlite"
   },
   "production": {
-    "username": "root",
-    "password": "root",
-    "database": "database_production",
+    "username": "sakuxz",
+    "password": "",
+    "database": "c9",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
