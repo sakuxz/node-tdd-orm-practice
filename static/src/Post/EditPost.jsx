@@ -8,9 +8,10 @@ var EditPost = React.createClass({
           <div className="content">
             <form className="ui form" ref="form" >
               <div className="field">
-               <label>Text</label>
-               <textarea name="content"></textarea>
-             </div>
+                <label>Text</label>
+                <textarea name="content"></textarea>
+              </div>
+              <input type="file" ref="file" accept="image/*" />
               <button className="ui button" type="submit" onClick={this.createPost} >Post</button>
             </form>
           </div>
@@ -30,23 +31,57 @@ var EditPost = React.createClass({
     if(check){
       this.isSend = true;
       var data = $(this.refs.form).serializeObject();
-      postPost(data).then(function () {
-        this.isSend = false;
-        this.refs.form.reset();
-        $('body').trigger('new_mes');
-        this.props.toggleEdit();
-      }.bind(this), function (e) {
-        this.isSend = false;
-        this.refs.form.reset();
-        e = JSON.parse(e.responseText);
-        if(e.data === 'no auth')
+      if(this.refs.file.files.length === 0){
+        postPost(data).then(function () {
+          this.isSend = false;
+          this.refs.form.reset();
+          $('body').trigger('new_mes');
+          this.props.toggleEdit();
+        }.bind(this), function (e) {
+          this.isSend = false;
+          this.refs.form.reset();
+          e = JSON.parse(e.responseText);
+          if(e.data === 'no auth')
           alert('you have been logout');
-        else
+          else
           alert('network error');
-      }.bind(this));
+        }.bind(this));
+      }else{
+        postPostWithImg(data, this.refs.file.files[0]).then(function () {
+          this.isSend = false;
+          this.refs.form.reset();
+          $('body').trigger('new_mes');
+          this.props.toggleEdit();
+        }.bind(this), function (e) {
+          this.isSend = false;
+          this.refs.form.reset();
+          e = JSON.parse(e.responseText);
+          if(e.data === 'no auth')
+          alert('you have been logout');
+          else
+          alert('network error');
+        }.bind(this));
+      }
     }
   }
 });
+
+function postPostWithImg(data, file){
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    var formData = new FormData();
+    formData.append('content', data.content);
+    formData.append('pict', file);
+    xhr.open('POST', '/post');
+    xhr.onload = function(e) {
+      resolve(xhr.responseText);
+    }
+    xhr.onerror = function(e) {
+      reject(e);
+    }
+    xhr.send(formData);
+  });
+}
 
 function postPost(data) {
   return new Promise(function(resolve, reject) {
