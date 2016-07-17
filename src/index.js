@@ -29,6 +29,7 @@ export default async function start_server() {
         extended: false
     }));
     app.use(express.static(path.join(__dirname, '..', 'static')));
+    app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
     app.use(session({
       secret: 'one ok rock',
       saveUninitialized: true,

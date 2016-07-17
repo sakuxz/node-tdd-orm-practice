@@ -3,20 +3,21 @@ import express from 'express';
 import responseHandler from './responseHandler';
 import {checkAuth} from './responseHandler';
 import multer from 'multer'
+import path from 'path';
 
 let router = express.Router();
 
 // let storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
-//     cb(null, '/upload')
+//     cb(null, __dirname + '/upload')
 //   },
 //   filename: function (req, file, cb) {
-//     cb(null, 'pict' + '-' + Date.now())
+//     cb(null, 'pict' + Date.now())
 //   }
 // })
 // let upload = multer({ storage: storage })
 var upload = multer({
-  dest: '../upload/',
+  dest: path.join(__dirname, '..', 'uploads'),
   mimetype: 'image/*'
 });
 

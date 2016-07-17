@@ -39,3 +39,6 @@ nbproject
 
 #sqlite
 *.sqlite
+
+#uploads folder
+/src/uploads
