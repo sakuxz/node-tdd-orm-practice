@@ -2,16 +2,34 @@
 import express from 'express';
 import responseHandler from './responseHandler';
 import {checkAuth} from './responseHandler';
+import multer from 'multer'
 
 let router = express.Router();
 
-router.post('/post',async (req, res, next) => {
+// let storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, '/upload')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, 'pict' + '-' + Date.now())
+//   }
+// })
+// let upload = multer({ storage: storage })
+var upload = multer({
+  dest: '../upload/',
+  mimetype: 'image/*'
+});
+
+router.post('/post',upload.single('pict'),async (req, res, next) => {
   checkAuth(req,res,next);
 
   let body = req.body;
   let newPost = {
     content: body.content,
     UserId: req.session.uid
+  }
+  if(req.file){
+    newPost.img = req.file.filename;
   }
   try{
     let mes = await db.Post.create(newPost);

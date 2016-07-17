@@ -14,6 +14,13 @@ router.post('/like',async (req, res, next) => {
     UserId: req.session.uid
   }
   try{
+    let result = await db.Like.findAll({
+      where: newLike
+    });
+    if(result.length > 0){
+      responseHandler(res, true, 'you did it yet');
+      return;
+    }
     let mes = await db.Like.create(newLike);
     responseHandler(res, true, mes);
   }catch (e){

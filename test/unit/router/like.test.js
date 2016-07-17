@@ -62,6 +62,22 @@ describe('like router test', () => {
     }
   });
   
+  it('create duplicate like', async (done) => {
+    try {
+      let result = await agent
+        .post('/like')
+        .send({
+          postId: postId
+        })
+        .expect(200);
+      JSON.parse(result.text).status.should.be.true;
+      JSON.parse(result.text).data.should.be.eq('you did it yet');
+      done()
+    } catch (e) {
+      done(e)
+    }
+  });
+  
   it('create new like without postId', async (done) => {
     try {
       let result = await agent
