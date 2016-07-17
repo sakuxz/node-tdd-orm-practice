@@ -12,7 +12,7 @@ var EditPost = React.createClass({
                 <textarea name="content"></textarea>
               </div>
               <input type="file" ref="file" accept="image/*" />
-              <button className="ui button" type="submit" onClick={this.createPost} >Post</button>
+              <button className="ui button" ref='submit' type="submit" onClick={this.createPost} >Post</button>
             </form>
           </div>
         </div>
@@ -30,15 +30,18 @@ var EditPost = React.createClass({
     });
     if(check){
       this.isSend = true;
+      this.refs.submit.innerText = "Posting";
       var data = $(this.refs.form).serializeObject();
       if(this.refs.file.files.length === 0){
         postPost(data).then(function () {
           this.isSend = false;
+          this.refs.submit.innerText = "Post";
           this.refs.form.reset();
           $('body').trigger('new_mes');
           this.props.toggleEdit();
         }.bind(this), function (e) {
           this.isSend = false;
+          this.refs.submit.innerText = "Post";
           this.refs.form.reset();
           e = JSON.parse(e.responseText);
           if(e.data === 'no auth')
@@ -49,11 +52,13 @@ var EditPost = React.createClass({
       }else{
         postPostWithImg(data, this.refs.file.files[0]).then(function () {
           this.isSend = false;
+          this.refs.submit.innerText = "Post";
           this.refs.form.reset();
           $('body').trigger('new_mes');
           this.props.toggleEdit();
         }.bind(this), function (e) {
           this.isSend = false;
+          this.refs.submit.innerText = "Post";
           this.refs.form.reset();
           e = JSON.parse(e.responseText);
           if(e.data === 'no auth')

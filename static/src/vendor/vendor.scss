@@ -129,7 +129,8 @@ body {
         }
         .p-content {
           background: white;
-          box-shadow: 0 3px 4px 1px #eceaea;
+          // box-shadow: 0 3px 4px 1px #eceaea;
+          box-shadow: 0 1px 3px -1px #afafaf,0 3px 4px 1px #eceaea;
           transform: scale(1.02);
           .ctrl-group {
             .button {
@@ -219,6 +220,21 @@ body {
           float: right;
           margin: 0 8px 0 0;
           color: #b5b5b5;
+        }
+        // img {
+        //   width: 150px;
+        //   position: absolute;
+        //   bottom: 0px;
+        //   right: 6em;
+        //   display: block;
+        //   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+        //   border-radius: 6px;
+        // }
+        img {
+          max-width: 300px;
+          margin: 1.2em 0 1em;
+          border-radius: 6px;
+          box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
         }
         p {
           margin-bottom: 0;

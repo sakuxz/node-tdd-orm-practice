@@ -37,6 +37,11 @@ var Post = React.createClass({
               <i className="remove icon"></i>
             </button>
           </div>
+          {
+            (this.props.data.img)?
+              <div className="img-wrapper"><img src={'/uploads/'+this.props.data.img} /></div>
+              :null
+          }
           <span>{new Date(this.props.data.createdAt).toLocaleDateString()+" "+new Date(this.props.data.createdAt).toLocaleTimeString()}</span>
         </div>
       </div>
