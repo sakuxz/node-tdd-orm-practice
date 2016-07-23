@@ -7,6 +7,7 @@
 /*global request*/
 /*global server*/
 import startServer from '../../../src/index';
+import path from 'path';
 
 
 describe('post router test', () => {
@@ -55,7 +56,7 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('create new post with img', async (done) => {
     try {
       let result = await agent
@@ -65,13 +66,14 @@ describe('post router test', () => {
         .expect(200);
       JSON.parse(result.text).status.should.be.true;
       JSON.parse(result.text).data.should.has.keys('id', 'content', 'img', 'UserId', 'createdAt', 'updatedAt');
+      fs.existsSync(path.join(__dirname,'..', '..', '..','src','uploads',JSON.parse(result.text).data.img)).should.be.true;
       postId = JSON.parse(result.text).data.id;
       done()
     } catch (e) {
       done(e)
     }
   });
-  
+
   it('create new post without content', async (done) => {
     try {
       let result = await agent
@@ -86,13 +88,13 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('create new post without login', async (done) => {
     try {
       await agent
         .post('/logout')
         .expect(200);
-      
+
       let result = await agent
         .post('/post')
         .send({
@@ -106,7 +108,7 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('get all post', async (done) => {
     try {
       let result = await agent
@@ -120,7 +122,7 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('update post without login', async (done) => {
     try {
       let result = await agent
@@ -137,7 +139,7 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('update post', async (done) => {
     try {
       await agent
@@ -147,7 +149,7 @@ describe('post router test', () => {
           password: 'pwd'
         })
         .expect(200);
-      
+
       let result = await agent
         .patch('/post')
         .send({
@@ -163,7 +165,7 @@ describe('post router test', () => {
       done(e)
     }
   });
-  
+
   it('delete post', async (done) => {
     try {
       await agent
@@ -173,7 +175,7 @@ describe('post router test', () => {
           password: 'pwd'
         })
         .expect(200);
-      
+
       let result = await agent
         .delete('/post')
         .send({
