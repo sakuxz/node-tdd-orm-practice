@@ -1,5 +1,4 @@
-# React Example
-This project rewrite from [React Transform Boilerplate](https://github.com/gaearon/react-transform-boilerplate).
+# A React App
 
 Run with development:
 ```
