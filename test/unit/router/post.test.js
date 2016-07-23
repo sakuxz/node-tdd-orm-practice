@@ -8,6 +8,7 @@
 /*global server*/
 import startServer from '../../../src/index';
 import path from 'path';
+import fs from 'fs';
 
 
 describe('post router test', () => {
