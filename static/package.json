@@ -3,8 +3,8 @@
     "clean": "rimraf build",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "old_dev": "node devServer.js",
-    "dev": "webpack-dev-server --hot --inline --config webpack.config.dev.js"
+    "dev": "node devServer.js",
+    "another-dev": "webpack-dev-server --hot --inline --config webpack.config.dev.js"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
